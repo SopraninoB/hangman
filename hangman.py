@@ -1,8 +1,12 @@
 from random import choice
 
 def get_guess():
+    global progress
     guess = input("What's the letter\n\n").lower()
     if len(guess) == 1 and guess.isalpha():
+        return guess
+    elif guess == solution:
+        progress = solution
         return guess
     print("no!")
     display_status()
@@ -30,11 +34,9 @@ solution = choice(keywords)
 progress = ["_ "] * len(solution)
 wrong = set()
 
-print(solution)
 while not is_correct() and len(wrong) < 6:
     display_status()
     update_progress(get_guess())
     
-    
 print(''.join(progress))
-print("Yay!" if len(wrong) < 6 else "Boo!")
+print("Yay!" if len(wrong) < 6 else f"Boo!\nAnswer was: {solution}")
